@@ -42,29 +42,30 @@ class DataGET():
         img_url = contents['url']  # jsgonzlez661: Extrar url
         return img_url
 
-summary = DataGET.get_summary()  # jsgonzlez661: Recopiled Information
 
-# jsgonzlez661: Numbers case confirmed
-case_confirmed = str(summary['Confirmed']['Count'])
+# summary = DataGET.get_summary()  # jsgonzlez661: Recopiled Information
 
-# jsgonzlez661: Numbers case recovered
-case_recovered = str(summary['Recovered']['Count'])
+# # jsgonzlez661: Numbers case confirmed
+# case_confirmed = str(summary['Confirmed']['Count'])
 
-# jsgonzlez661: Numbers case deaths
-case_deaths = str(summary['Deaths']['Count'])
+# # jsgonzlez661: Numbers case recovered
+# case_recovered = str(summary['Recovered']['Count'])
 
-# jsgonzlez661: Numbers case for men
-distribuid_male = summary['Confirmed']['ByGender'][
-    'male']
+# # jsgonzlez661: Numbers case deaths
+# case_deaths = str(summary['Deaths']['Count'])
 
-# jsgonzlez661: Numbers case for woman
-distribuid_female = summary['Confirmed']['ByGender'][
-    'female']
+# # jsgonzlez661: Numbers case for men
+# distribuid_male = summary['Confirmed']['ByGender'][
+#     'male']
 
-bygender = summary['Confirmed']['ByGender']
+# # jsgonzlez661: Numbers case for woman
+# distribuid_female = summary['Confirmed']['ByGender'][
+#     'female']
 
-# jsgonzlez661: Numbers case for age
-byagerange = summary['Confirmed']['ByAgeRange']
+# bygender = summary['Confirmed']['ByGender']
 
-# jsgonzlez661: Numbers case for state
-bystate = summary['Confirmed']['ByState']
+# # jsgonzlez661: Numbers case for age
+# byagerange = summary['Confirmed']['ByAgeRange']
+
+# # jsgonzlez661: Numbers case for state
+# bystate = summary['Confirmed']['ByState']

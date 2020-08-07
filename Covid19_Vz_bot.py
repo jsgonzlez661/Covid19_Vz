@@ -20,6 +20,8 @@ def send_welcome(message):
 # jsgonzlez661: Shows case positive
 @bot.message_handler(commands=['positivos'])
 def Confirmed(message):
+    summary = DataGET.get_summary()
+    case_confirmed = str(summary['Confirmed']['Count'])
     msg = "Casos Positivos: " + case_confirmed
     bot.reply_to(message, msg)
 
@@ -27,6 +29,8 @@ def Confirmed(message):
 # jsgonzlez661: Shows case recovery
 @bot.message_handler(commands=['recuperados'])
 def Recovered(message):
+    summary = DataGET.get_summary()
+    case_recovered = str(summary['Recovered']['Count'])
     msg = "Casos Recuperados: " + case_recovered
     bot.reply_to(message, msg)
 
@@ -34,6 +38,8 @@ def Recovered(message):
 # jsgonzlez661: Shows case deaths
 @bot.message_handler(commands=['fallecidos'])
 def Deaths(message):
+    summary = DataGET.get_summary()
+    case_deaths = str(summary['Deaths']['Count'])
     msg = "Fallecidos: " + case_deaths
     bot.reply_to(message, msg)
 
@@ -41,6 +47,12 @@ def Deaths(message):
 # jsgonzlez661: Shows graph for gender distribution
 @bot.message_handler(commands=['genero'])
 def ByGender_pie(message):
+    summary = DataGET.get_summary()
+    distribuid_male = summary['Confirmed']['ByGender'][
+        'male']
+    distribuid_female = summary['Confirmed']['ByGender'][
+        'female']
+    bygender = summary['Confirmed']['ByGender']
     bot.reply_to(message, 'Distribución por genero\nHombres: ' + str(distribuid_male) +
                  '\nMujeres: ' + str(distribuid_female) + '\n' +
                  DataGET.make_graph("pie", 'Distribución por genero', bygender))
@@ -49,6 +61,8 @@ def ByGender_pie(message):
 # jsgonzlez661: Shows graph for age distribution
 @bot.message_handler(commands=['edad'])
 def ByGender_pie(message):
+    summary = DataGET.get_summary()
+    byagerange = summary['Confirmed']['ByAgeRange']
     bot.reply_to(message, 'Distribución por edad: \n' +
                  DataGET.make_graph("bar", 'Distribución por edad', byagerange))
 
@@ -63,6 +77,8 @@ def ByGender_pie(message):
 # jsgonzlez661: Shows graph for states distribution
 @bot.message_handler(commands=['estados'])
 def ByGender_pie(message):
+    summary = DataGET.get_summary()
+    bystate = summary['Confirmed']['ByState']
     bot.reply_to(message, 'Distribución por estados: \n' +
                  DataGET.make_graph("bar", 'Distribución por estados', bystate))
 
@@ -70,6 +86,8 @@ def ByGender_pie(message):
 # jsgonzlez661: Shows the list of chart types
 @bot.message_handler(commands=['lista'])
 def echo_all(message):
+    summary = DataGET.get_summary()
+    bystate = summary['Confirmed']['ByState']
     states = list_states(bystate)
     msg = ""
     for state in states:
@@ -78,16 +96,17 @@ def echo_all(message):
 
 
 # jsgonzlez661: Shows the number of confirmed cases in the state
-@bot.message_handler(commands=list_states(bystate))
+@bot.message_handler(commands=list_states(DataGET.get_summary()['Confirmed']['ByState']))
 def ByState(message):
+    summary = DataGET.get_summary()
+    bystate = summary['Confirmed']['ByState']
     state = message.text
     value = find_state_data(bystate, state)
     msg = 'Casos Confirmados en ' + state + ': ' + str(value)
     bot.reply_to(message, msg)
 
-while True: 
+while True:
     try:
         bot.polling(none_stop=True)
     except telebot.apihelper.ApiException:
         bot.polling(none_stop=True)
-
